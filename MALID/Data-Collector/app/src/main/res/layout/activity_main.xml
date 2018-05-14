@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="malid.datacollector.Activities.MainActivity"
+    android:orientation="vertical">
+
+
+    <!--블루투스 연결-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <EditText
+            android:id="@+id/txtPhysicalAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ems="10"
+            android:hint="Physical Address"
+            android:inputType="textPersonName" />
+        <Button
+            android:id="@+id/btnStartConnecting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="connecting" />
+    </LinearLayout>
+
+
+
+    <!--강도 상태, 음악조절 버튼-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="  강도 설정"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textDegree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="1. 매우약함"
+            android:textSize="20sp" />
+        <ToggleButton
+            android:id="@+id/toggleMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="mOnClick"
+            android:textOff="music off"
+            android:textOn="music on"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+
+
+
+
+
+    <RadioGroup
+        android:id="@+id/groupDegree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:checkedButton="@id/radioDegree1"
+        android:layout_weight="1">
+        <RadioButton
+            android:id="@+id/radioDegree1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1"
+            android:onClick="mOnClick"/>
+        <RadioButton
+            android:id="@+id/radioDegree2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2"
+            android:onClick="mOnClick"/>
+        <RadioButton
+            android:id="@+id/radioDegree3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3"
+            android:onClick="mOnClick"/>
+        <RadioButton
+            android:id="@+id/radioDegree4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4"
+            android:onClick="mOnClick"/>
+        <RadioButton
+            android:id="@+id/radioDegree5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5"
+            android:onClick="mOnClick"/>
+    </RadioGroup>
+
+
+
+
+
+    <!--상태 프로그레스-->
+    <ProgressBar
+        android:id="@+id/progressState"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="170"
+        android:progress="0"
+        android:progressTint="#3aa929"
+        android:secondaryProgress="0"
+        android:layout_weight="0.8"/>
+
+    <!--알림-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170sp"
+        android:background="#1b1a1a">
+        <TextView
+            android:id="@+id/textState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 BPM"
+            android:textColor="#3aa929"
+            android:textSize="100sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+
+
+
+
+
+
+    <!--기준심박수-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Prediction"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textStan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autoText="true"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+
+
+
+    <!--현재심박수-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Selected           "
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textCurr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="[  1  ]"
+            android:autoText="false"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+
+
+
+
+
+    <!--운동시간-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time    "
+            android:layout_weight="1.5"
+            android:textSize="25sp"
+            android:textColor="#000000" />
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+    <!-- information-->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0.7">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  State"
+            android:textStyle="bold"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/textConn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Disconnected"/>
+        <TextView
+            android:id="@+id/textByte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollHorizontally="false"
+            android:layout_weight="3"/>
+        <TextView
+            android:id="@+id/textServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+        <ProgressBar
+            android:id="@+id/progressServer"
+            android:layout_width="20sp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:text="Start"
+        android:layout_weight="2"/>
+
+
+
+</LinearLayout>

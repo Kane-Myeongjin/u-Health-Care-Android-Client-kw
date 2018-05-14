@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10sp"
+    android:paddingRight="10sp"
+    android:paddingTop="10sp"
+    android:paddingBottom="5sp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="u-Health-Care-System"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="회원가입"
+            android:textSize="40sp"
+            android:textColor="#000000"/>
+    </RelativeLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="아이디*"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSignupID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="영문/숫자 조합 12글자 이내"
+            android:inputType="text"
+            android:maxLength="12"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="비밀번호*"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSignupPWD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="영문/숫자 8글자 이내"
+            android:inputType="textPassword"
+            android:maxLength="8"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="확인*"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSignupPWD2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="영문/숫자 8글자 이내"
+            android:inputType="textPassword"
+            android:maxLength="8"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="이름*"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/editSignupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="입력"
+            android:inputType="text"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="나이"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/editSignupAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="숫자 입력"
+            android:layout_weight="8"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="성별"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+        <RadioGroup
+            android:id="@+id/groupSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="남자"
+                android:layout_weight="1"
+                android:onClick="mOnClick"/>
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여자"
+                android:layout_weight="1"
+                android:onClick="mOnClick"/>
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="키"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/editSignupStature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="cm"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="몸무게"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/editSignupWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="kg"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="*항목은 필수 입력"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/btnSignupOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가입"
+            android:textSize="35sp"
+            android:layout_weight="1"
+            android:onClick="mOnClick"/>
+        <Button
+            android:id="@+id/btnSignupCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:textSize="35sp"
+            android:layout_weight="1"
+            android:onClick="mOnClick"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
