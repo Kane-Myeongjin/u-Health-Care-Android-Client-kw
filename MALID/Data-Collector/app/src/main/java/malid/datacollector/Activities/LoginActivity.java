@@ -221,13 +221,15 @@ import malid.datacollector.R;
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(mServerMsg.equals("ack")){
+            if(mServerMsg.equals("err")){
                 // server에서 받아서 닉네임으로 넣기 수정 !!
-                SaveSharedPreference.setUserName(LoginActivity.this, mUserId);
+                Toast.makeText(getApplicationContext(), mServerMsg, Toast.LENGTH_SHORT).show();
+            } else if(mServerMsg.equals("nack")){
+                Toast.makeText(getApplicationContext(), "아이디 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                SaveSharedPreference.setUserName(LoginActivity.this, mServerMsg); //로그인 인증
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
-            } else {
-                Toast.makeText(getApplicationContext(), "아이디 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
             }
         }
     }

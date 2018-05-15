@@ -258,8 +258,10 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "회원가입 완료.\n로그인 해주세요.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
-            } else {
+            } else if (mServerMsg.equals("err:sameid")){
                 Toast.makeText(getApplicationContext(), "이미 존재하는 아이디 입니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), mServerMsg, Toast.LENGTH_SHORT).show();
             }
         }
 

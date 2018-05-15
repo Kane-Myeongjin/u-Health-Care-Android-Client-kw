@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import malid.datacollector.Modules.BackPressCloseHandler;
 import malid.datacollector.Modules.SaveSharedPreference;
@@ -20,6 +21,8 @@ public class HomeActivity extends AppCompatActivity {
     private Button mBtnGoList, mBtnGoMain, mBtnLogout, mBtnExit;
 
     private BackPressCloseHandler backPressCloseHandler;
+
+    private int mUserId=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class HomeActivity extends AppCompatActivity {
         mBtnLogout = (Button)findViewById(R.id.btnLogout);
         mBtnExit = (Button)findViewById(R.id.btnExit);
 
+        mUserId = Integer.parseInt(SaveSharedPreference.getUserName(HomeActivity.this));
+        Toast.makeText(getApplicationContext(), "sid"+Integer.toString(mUserId), Toast.LENGTH_LONG).show();
 
 
         //기록 이동
@@ -44,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                intent.putExtra("uid", mUserId);
                 startActivity(intent);
             }
         });
@@ -56,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("uid", mUserId);
                 startActivity(intent);
             }
         });
@@ -86,6 +93,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public void onBackPressed() {
