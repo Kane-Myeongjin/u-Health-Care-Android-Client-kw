@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
 
-    private int mUserId=1;
+    private int mUserSessionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class HomeActivity extends AppCompatActivity {
         mBtnLogout = (Button)findViewById(R.id.btnLogout);
         mBtnExit = (Button)findViewById(R.id.btnExit);
 
-        mUserId = Integer.parseInt(SaveSharedPreference.getUserName(HomeActivity.this));
-        Toast.makeText(getApplicationContext(), "sid"+Integer.toString(mUserId), Toast.LENGTH_LONG).show();
+        mUserSessionId = Integer.parseInt(SaveSharedPreference.getUserName(HomeActivity.this));
+        Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
 
 
         //기록 이동
@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                intent.putExtra("uid", mUserId);
+                intent.putExtra("sid", mUserSessionId);
                 startActivity(intent);
             }
         });
@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("uid", mUserId);
+                intent.putExtra("sid", mUserSessionId);
                 startActivity(intent);
             }
         });

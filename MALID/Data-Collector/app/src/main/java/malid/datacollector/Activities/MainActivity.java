@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
     //전송 data
     private int mDegree=0;
     private int mHeartRate=0;
-    private int mUserId=1;
+    private int mUserSessionId;
 
     // 임시 사용 데이터 @@@@@@@
     private int mStanHR=50;
@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity{
 
 
         Intent intent = getIntent();
-        mUserId = intent.getExtras().getInt("uid");
-        Toast.makeText(getApplicationContext(), "sid:"+Integer.toString(mUserId), Toast.LENGTH_LONG).show();
+        mUserSessionId = intent.getExtras().getInt("sid");
+        Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
 
 
 
@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity{
                     jsonObject.accumulate("time", time);
                     jsonObject.accumulate("degree", mDegree);
                     jsonObject.accumulate("end", end);
-                    jsonObject.accumulate("id", mUserId);
+                    jsonObject.accumulate("id", mUserSessionId);
 
                     HttpURLConnection con = null;
                     BufferedReader reader = null;

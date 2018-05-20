@@ -30,7 +30,7 @@ public class HistoryActivity extends AppCompatActivity {
     private static final String HIST_URL_ADDRESS="http://13.125.151.92:9000/hist";
 
     private String mServerMsg;
-    private String mUserName;
+    private int mUserSessionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,10 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         setTitle("History");
+
+        Intent intent = getIntent();
+        mUserSessionId = intent.getExtras().getInt("sid");
+        Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
 
         //뒤로가기 버튼 추가
         ActionBar actionBar = getSupportActionBar();
@@ -65,7 +69,6 @@ public class HistoryActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            mUserName="testUser";
             mServerMsg=null;
             super.onPreExecute();
         }
@@ -75,7 +78,7 @@ public class HistoryActivity extends AppCompatActivity {
             try {
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("UserName", mUserName);
+                jsonObject.accumulate("sid", mUserSessionId);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
