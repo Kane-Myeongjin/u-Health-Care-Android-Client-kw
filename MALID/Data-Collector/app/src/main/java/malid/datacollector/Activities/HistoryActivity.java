@@ -62,6 +62,7 @@ public class HistoryActivity extends AppCompatActivity {
         //서버에 히스토리 요청
         GetHistory getHistory = new GetHistory();
         getHistory.execute(HIST_URL_ADDRESS+Integer.toString(mUserSessionId)+".jpg");
+        //getHistory.execute(HIST_URL_ADDRESS+Integer.toString(mUserSessionId)+".png");
     }
 
     // 뒤로가기 버튼 이벤트 처리 리스너
