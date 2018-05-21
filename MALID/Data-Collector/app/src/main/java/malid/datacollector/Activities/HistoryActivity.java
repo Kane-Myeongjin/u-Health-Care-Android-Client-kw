@@ -75,6 +75,13 @@ public class HistoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////// 서버 연결 스레드 ////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////

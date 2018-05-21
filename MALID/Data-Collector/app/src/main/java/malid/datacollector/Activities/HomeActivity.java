@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
             mServerMsg=null;
             super.onPreExecute();
             pDialog = new ProgressDialog(HomeActivity.this);
-            pDialog.setMessage("auth sid:"+Integer.toString(mUserSessionId)+" loading ...");
+            pDialog.setMessage(" loading ...");
             pDialog.show();
             mServerMsg=null;
         }

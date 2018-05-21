@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         mUserSessionId = intent.getExtras().getInt("sid");
-        Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
 
 
 
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    // 뒤로가기 버튼 이벤트 처리 리스너
+    // 액션바 뒤로가기 버튼
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -179,6 +179,14 @@ public class MainActivity extends AppCompatActivity{
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // 디바이스 뒤로가기 버튼
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void changeplayerSpeed(float speed) {
