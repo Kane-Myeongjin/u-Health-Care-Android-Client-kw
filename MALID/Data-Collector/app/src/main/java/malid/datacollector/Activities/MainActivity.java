@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -113,7 +114,8 @@ public class MainActivity extends AppCompatActivity{
     private ToggleButton mToggleMusic;
 
     float speed = 1f;                   //music speed / default = 1f
-    int predict =0;
+    int predict = -1;
+    int tmp_predict = -1;
 
     //sys
     private boolean mConnDevice;
@@ -125,6 +127,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.v(TAG, "mainActivity onCreate");
 
         Intent intent = getIntent();
         mUserSessionId = intent.getExtras().getInt("sid");
@@ -183,7 +186,7 @@ public class MainActivity extends AppCompatActivity{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (mMusicPlayer.isPlaying()) {
                 mMusicPlayer.setPlaybackParams(mMusicPlayer.getPlaybackParams().setSpeed(speed));
-                Toast.makeText(getApplicationContext(),"@@", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"change music speed", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -376,26 +379,30 @@ public class MainActivity extends AppCompatActivity{
                         }
                         //textServer.setText("server:"+buffer.toString());//서버로 부터 받은 문자 textView에 출력
 
+                        tmp_predict = predict;
                         predict = Integer.parseInt(buffer.toString());
 
-                        //mTvStanHR.setText("[  " + predict + "  ]");
+                        if(predict != tmp_predict)
+                        {
+                            mPlayerByToggle();
+                        }
+
 
                         if (predict != -1) {
-                            mTvStanHR.setText("[  " + (predict+1) + "  ]");
-                            // Toast.makeText(getApplicationContext(), "@@@@@", Toast.LENGTH_SHORT).show();
+
+                            mTvStanHR.setText("[  " + (predict) + "  ]");
+
                             if (predict > mDegree){
-                                speed = 0.5f;
-                                mTvStanHR.setTextColor(Color.parseColor("#FF0000")); //R
+                                mMusicPlayer.pause();
+                                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             }
                             else if (predict < mDegree) {
-                                speed = 2f;
+                                mMusicPlayer.pause();
                                 mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             } else{
-                                speed = 1f;
-                                mTvStanHR.setTextColor(Color.parseColor("#00FF00")); //G
+                                mMusicPlayer.pause();
+                                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             }
-
-                            changeplayerSpeed(speed);
                         }
 
                         Log.v(TAG, "receive data from server");
@@ -425,16 +432,14 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         protected void onProgressUpdate(String... params) {
-            //mTvCurrHR.setText("  "+Integer.toString(mHeartRate)+" BPM");
-
             //total 상태창 업데이트
+            mTvTotalState.setText(Integer.toString(mHeartRate)+" BPM");
             if(mDegree<predict){ //설정값<예측값
-                mTvTotalState.setText(Integer.toString(mHeartRate)+" BPM");
-                mTvTotalState.setTextColor(Color.parseColor("#FF0000")); //red
-
+                mTvTotalState.setTextColor(Color.parseColor("#FF0000")); //R
+                mProgState.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
             } else {
-                mTvTotalState.setText(Integer.toString(mHeartRate)+" BPM");
-                mTvTotalState.setTextColor(Color.parseColor("#3aa929")); //green
+                mTvTotalState.setTextColor(Color.parseColor("#00FF00")); //G
+                mProgState.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
             }
 
             if(time!=0 && time%5==0) {
@@ -531,8 +536,6 @@ public class MainActivity extends AppCompatActivity{
         descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
         bluetoothGatt.writeDescriptor(descriptor);
     }
-
-
 
 
     final BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
@@ -663,31 +666,31 @@ public class MainActivity extends AppCompatActivity{
                 mDegree=0;
                 mSetDegreeText(0);
                 //mSetStanHRText(0);
-                mTvCurrHR.setText("[  " + (mDegree+1) + "  ]");
+                mTvCurrHR.setText("[  " + (mDegree) + "  ]");
                 break;
             case R.id.radioDegree2:
                 mDegree=1;
                 mSetDegreeText(1);
                 //mSetStanHRText(1);
-                mTvCurrHR.setText("[  " + (mDegree+1) + "  ]");
+                mTvCurrHR.setText("[  " + (mDegree) + "  ]");
                 break;
             case R.id.radioDegree3:
                 mDegree=2;
                 mSetDegreeText(2);
                 //mSetStanHRText(2);
-                mTvCurrHR.setText("[  " + (mDegree+1) + "  ]");
+                mTvCurrHR.setText("[  " + (mDegree) + "  ]");
                 break;
             case R.id.radioDegree4:
                 mDegree=3;
                 mSetDegreeText(3);
                 // mSetStanHRText(3);
-                mTvCurrHR.setText("[  " + (mDegree+1) + "  ]");
+                mTvCurrHR.setText("[  " + (mDegree) + "  ]");
                 break;
             case R.id.radioDegree5:
                 mDegree=4;
                 mSetDegreeText(4);
                 // mSetStanHRText(4);
-                mTvCurrHR.setText("[  " + (mDegree+1) + "  ]");
+                mTvCurrHR.setText("[  " + (mDegree) + "  ]");
                 break;
         }
     }
@@ -695,19 +698,19 @@ public class MainActivity extends AppCompatActivity{
     private void mSetDegreeText(int degree) {
         switch (degree){
             case 0:
-                mTvDegree.setText("1. 매우약함");
+                mTvDegree.setText("0. 매우약함");
                 break;
             case 1:
-                mTvDegree.setText("2. 약함");
+                mTvDegree.setText("1. 약함");
                 break;
             case 2:
-                mTvDegree.setText("3. 중간");
+                mTvDegree.setText("2. 중간");
                 break;
             case 3:
-                mTvDegree.setText("4. 약간강함");
+                mTvDegree.setText("3. 약간강함");
                 break;
             case 4:
-                mTvDegree.setText("5. 강함");
+                mTvDegree.setText("4. 강함");
                 break;
         }
     }
@@ -716,8 +719,29 @@ public class MainActivity extends AppCompatActivity{
 
     private void mPlayerByToggle(){
         if(mToggleMusic.isChecked()) { //MUSIC ON
-            mMusicPlayer.start();
-            changeplayerSpeed(speed);
+            if(predict == -1)
+            {
+                mMusicPlayer.start();
+            }
+            else if (predict > mDegree){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mMusicPlayer.setPlaybackParams(mMusicPlayer.getPlaybackParams().setSpeed((float)0.6));
+                }
+                mTvStanHR.setTextColor(Color.parseColor("#FF0000")); //R
+            }
+            else if (predict < mDegree) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mMusicPlayer.setPlaybackParams(mMusicPlayer.getPlaybackParams().setSpeed((float)1.4));
+                }
+                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
+            }
+            else{
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mMusicPlayer.setPlaybackParams(mMusicPlayer.getPlaybackParams().setSpeed((float)1.0));
+                }
+                mTvStanHR.setTextColor(Color.parseColor("#00FF00")); //G
+            }
+
         } else { //MUSIC OFF
             mMusicPlayer.pause();
         }

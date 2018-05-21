@@ -34,7 +34,7 @@ import malid.datacollector.R;
 
         private static final String TAG="U-Health-login";
         private static final String LOGIN_URL_ADDRESS="http://13.125.151.92:9000/login";
-        private static final String TEST_URL_ADDRESS="http://13.125.217.245:3000/login";
+        //private static final String TEST_URL_ADDRESS="http://13.125.217.245:3000/login";
 
         //뒤로가기 종료 시간 체크
         //private final long FINISH_INTERVAL_TIME = 2000;
@@ -59,7 +59,7 @@ import malid.datacollector.R;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Log.v(TAG, "loginActivity onCreate");
 
         //액션 바 숨김
         ActionBar actionBar = getSupportActionBar();
@@ -222,7 +222,6 @@ import malid.datacollector.R;
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if(mServerMsg.equals("err")){
-                // server에서 받아서 닉네임으로 넣기 수정 !!
                 Toast.makeText(getApplicationContext(), mServerMsg, Toast.LENGTH_SHORT).show();
             } else if(mServerMsg.equals("nack")){
                 Toast.makeText(getApplicationContext(), "아이디 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();

@@ -53,6 +53,8 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        Log.v(TAG, "SignupActivity onCreate");
+
         //액션 바 숨김
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

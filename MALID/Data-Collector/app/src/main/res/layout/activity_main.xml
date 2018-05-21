@@ -82,35 +82,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1"
+            android:text="0"
             android:onClick="mOnClick"/>
         <RadioButton
             android:id="@+id/radioDegree2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2"
+            android:text="1"
             android:onClick="mOnClick"/>
         <RadioButton
             android:id="@+id/radioDegree3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="3"
+            android:text="2"
             android:onClick="mOnClick"/>
         <RadioButton
             android:id="@+id/radioDegree4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="4"
+            android:text="3"
             android:onClick="mOnClick"/>
         <RadioButton
             android:id="@+id/radioDegree5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5"
+            android:text="4"
             android:onClick="mOnClick"/>
     </RadioGroup>
 
@@ -124,11 +124,11 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.8"
         android:max="170"
         android:progress="0"
         android:progressTint="#3aa929"
-        android:secondaryProgress="0"
-        android:layout_weight="0.8"/>
+        android:secondaryProgress="0" />
 
     <!--알림-->
     <RelativeLayout
@@ -139,9 +139,9 @@
             android:id="@+id/textState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 BPM"
+            android:text="000 BPM"
             android:textColor="#3aa929"
-            android:textSize="100sp"
+            android:textSize="70sp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
@@ -203,8 +203,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="[  1  ]"
             android:autoText="false"
+            android:text="[  1  ]"
             android:textSize="24sp" />
     </LinearLayout>
 

@@ -1,12 +1,16 @@
 package malid.datacollector.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -27,30 +31,37 @@ import malid.datacollector.R;
 public class HistoryActivity extends AppCompatActivity {
 
     private static final String TAG="U-Health-history";
-    private static final String HIST_URL_ADDRESS="http://13.125.151.92:9000/hist";
+    private static final String HIST_URL_ADDRESS="http://13.125.151.92:9000/static/history/";
 
     private String mServerMsg;
     private int mUserSessionId;
+
+    private Bitmap mBitmap;
+
+    private ImageView mImgHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-
+        Log.v(TAG, "historyActivity onCreate");
         setTitle("History");
 
         Intent intent = getIntent();
         mUserSessionId = intent.getExtras().getInt("sid");
-        Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "auth sid:"+Integer.toString(mUserSessionId), Toast.LENGTH_LONG).show();
 
         //뒤로가기 버튼 추가
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
+        mImgHistory = (ImageView) findViewById(R.id.imgViewHist);
+
+
         //서버에 히스토리 요청
-        ConnServerAsyncTask connServerAsyncTask = new ConnServerAsyncTask();
-        connServerAsyncTask.execute(HIST_URL_ADDRESS);
+        GetHistory getHistory = new GetHistory();
+        getHistory.execute(HIST_URL_ADDRESS+Integer.toString(mUserSessionId)+".jpg");
     }
 
     // 뒤로가기 버튼 이벤트 처리 리스너
@@ -60,92 +71,48 @@ public class HistoryActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public class ConnServerAsyncTask extends AsyncTask<String, String, String> {
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////// 서버 연결 스레드 ////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    private class GetHistory extends AsyncTask<String, String, Bitmap> {
+
+        ProgressDialog pDialog;
 
         @Override
         protected void onPreExecute() {
-            mServerMsg=null;
             super.onPreExecute();
+            pDialog = new ProgressDialog(HistoryActivity.this);
+            pDialog.setMessage("history 불러오는 중");
+            pDialog.show();
         }
 
-        @Override
-        protected String doInBackground(String... urls) {
+        protected Bitmap doInBackground(String... args) {
             try {
+                mBitmap = BitmapFactory
+                        .decodeStream((InputStream) new URL(args[0])
+                                .getContent());
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("sid", mUserSessionId);
-
-                HttpURLConnection con = null;
-                BufferedReader reader = null;
-
-                try{
-                    URL url = new URL(urls[0]);
-                    con = (HttpURLConnection) url.openConnection();
-                    con.setRequestMethod("POST");
-                    con.setRequestProperty("Cache-Control", "no-cache");
-                    con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestProperty("Accept", "text/html");
-                    con.setDoOutput(true);
-                    con.setDoInput(true);
-                    con.connect();
-
-                    OutputStream outStream = con.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
-                    writer.write(jsonObject.toString());
-                    writer.flush();
-                    writer.close();
-
-                    InputStream stream = con.getInputStream();
-
-                    reader = new BufferedReader(new InputStreamReader(stream));
-
-                    StringBuffer buffer = new StringBuffer();
-
-                    String line = "";
-                    while((line = reader.readLine()) != null){
-                        buffer.append(line);
-                    }
-                    mServerMsg = buffer.toString();
-                    Log.v(TAG, "receive data from server");
-                    return mServerMsg;
-                } catch (MalformedURLException e){
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if(con != null){
-                        con.disconnect();
-                    }
-                    try {
-                        if(reader != null){
-                            reader.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return mBitmap;
         }
 
+        protected void onPostExecute(Bitmap image) {
 
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            if(mServerMsg.equals("ack")){
-                Toast.makeText(getApplicationContext(), "ack", Toast.LENGTH_SHORT).show();
+            if (image != null) {
+                mImgHistory.setImageBitmap(image);
+                pDialog.dismiss();
             } else {
-                Toast.makeText(getApplicationContext(), "nack", Toast.LENGTH_SHORT).show();
+                pDialog.dismiss();
+                Toast.makeText(HistoryActivity.this, "history 가 존재하지 않습니다.",
+                        Toast.LENGTH_SHORT).show();
             }
         }
-
     }
+
 }
