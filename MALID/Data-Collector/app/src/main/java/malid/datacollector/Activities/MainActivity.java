@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView mTvCurrHR;
     private TextView mTvStanHR;
     private TextView mTvTotalState;
+    private TextView mTvStep;
     private ProgressBar mProgState;
     private ToggleButton mToggleMusic;
 
@@ -248,6 +249,7 @@ public class MainActivity extends AppCompatActivity{
         mGroupDegree = (RadioGroup)findViewById(R.id.groupDegree);
         mGroupDegree.check(id); //체크해놓고
         mToggleMusic = (ToggleButton)findViewById(R.id.toggleMusic);
+        mTvStep = (TextView)findViewById(R.id.textStep);
     }
 
     void initializeEvents() {
@@ -590,6 +592,13 @@ public class MainActivity extends AppCompatActivity{
                     curr_cal = new_cal;
                     sendServer();
                 }
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        mTvStep.setText(curr_step);
+                    }
+                });
+
+
 
                 Log.v(TAG, "step : "+new_step);
                 Log.v(TAG, "distance : "+new_distance+"m");

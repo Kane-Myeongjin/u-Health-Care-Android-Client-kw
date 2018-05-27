@@ -60,11 +60,6 @@ public class HomeActivity extends AppCompatActivity {
 
         mUserSessionId = Integer.parseInt(SaveSharedPreference.getUserName(HomeActivity.this));
 
-        Log.v(TAG, "auth sid:"+Integer.toString(mUserSessionId));
-        //서버 전송
-        //서버 연결 스레드(유저 데이터 update) 실행
-        ConnServerAsyncTask connServerAsyncTask = new ConnServerAsyncTask();
-        connServerAsyncTask.execute(HOME_URL_ADDRESS);
 
         //기록 이동
         mBtnGoList.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +109,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //서버 전송
+        //서버 연결 스레드(유저 데이터 update) 실행
+        ConnServerAsyncTask connServerAsyncTask = new ConnServerAsyncTask();
+        connServerAsyncTask.execute(HOME_URL_ADDRESS);
     }
 
     // 뒤로가기버튼 리스너

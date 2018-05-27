@@ -210,7 +210,30 @@
 
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Step           "
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autoText="true"
+            android:textSize="25sp" />
+    </LinearLayout>
 
 
 
@@ -222,13 +245,14 @@
         android:layout_weight="1"
         android:layout_marginLeft="10sp"
         android:layout_marginRight="10sp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time    "
             android:layout_weight="1.5"
-            android:textSize="25sp"
-            android:textColor="#000000" />
+            android:text="Time    "
+            android:textColor="#000000"
+            android:textSize="25sp" />
         <Chronometer
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
