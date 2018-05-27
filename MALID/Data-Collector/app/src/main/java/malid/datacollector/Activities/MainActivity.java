@@ -592,11 +592,13 @@ public class MainActivity extends AppCompatActivity{
                     curr_cal = new_cal;
                     sendServer();
                 }
+                /*
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        mTvStep.setText(curr_step);
+                        Toast.makeText(getApplicationContext(), curr_step, Toast.LENGTH_LONG).show();
                     }
                 });
+                */
 
 
 
@@ -604,7 +606,8 @@ public class MainActivity extends AppCompatActivity{
                 Log.v(TAG, "distance : "+new_distance+"m");
                 Log.v(TAG, "cal : "+new_cal);
 
-                //txtByte.setText("step : " +step+"\n" + "distance : " + distance + "m\n"+"cal : " + cal);
+                mTvStep.setText(Integer.toString(new_step));
+
             }
 
 
