@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="1. 매우약함"
+            android:text="0. 매우약함"
             android:textSize="20sp" />
         <ToggleButton
             android:id="@+id/toggleMusic"
@@ -139,7 +139,7 @@
             android:id="@+id/textState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="000 BPM"
+            android:text=" 000 BPM "
             android:textColor="#3aa929"
             android:textSize="70sp"
             android:layout_centerHorizontal="true"
@@ -203,8 +203,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autoText="false"
-            android:text="[  1  ]"
+            android:autoText="true"
+            android:text="[  0  ]"
             android:textSize="24sp" />
     </LinearLayout>
 

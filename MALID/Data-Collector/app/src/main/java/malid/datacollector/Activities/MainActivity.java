@@ -63,7 +63,7 @@ import java.net.URL;
 
 // 처음의 운동강도 선택을 해야지 값이 입력됨.
 //바꿔야함
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private static final String TAG="U-Health-main";
     private static final String SERVER_URL_ADDRESS="http://13.125.151.92:9000/post";
@@ -446,10 +446,10 @@ public class MainActivity extends AppCompatActivity{
             mTvTotalState.setText(Integer.toString(mHeartRate)+" BPM");
             if(mDegree<predict){ //설정값<예측값
                 mTvTotalState.setTextColor(Color.parseColor("#FF0000")); //R
-                mProgState.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                //mProgState.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
             } else {
                 mTvTotalState.setTextColor(Color.parseColor("#00FF00")); //G
-                mProgState.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+                //mProgState.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
             }
 
             if(time!=0 && time%5==0) {
@@ -592,13 +592,6 @@ public class MainActivity extends AppCompatActivity{
                     curr_cal = new_cal;
                     sendServer();
                 }
-                /*
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), curr_step, Toast.LENGTH_LONG).show();
-                    }
-                });
-                */
 
 
 
@@ -606,8 +599,8 @@ public class MainActivity extends AppCompatActivity{
                 Log.v(TAG, "distance : "+new_distance+"m");
                 Log.v(TAG, "cal : "+new_cal);
 
-                mTvStep.setText(Integer.toString(new_step));
 
+                mTvStep.setText(Integer.toString(new_step));
             }
 
 
@@ -767,6 +760,16 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //mTvStep.setText(Integer.toString(new_step));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 
 
 }
