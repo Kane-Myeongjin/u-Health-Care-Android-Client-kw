@@ -223,8 +223,10 @@ import malid.datacollector.R;
             super.onPostExecute(result);
             if(mServerMsg.equals("err")){
                 Toast.makeText(getApplicationContext(), mServerMsg, Toast.LENGTH_SHORT).show();
-            } else if(mServerMsg.equals("nack")){
-                Toast.makeText(getApplicationContext(), "아이디 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+            } else if(mServerMsg.equals("nack:id")){
+                Toast.makeText(getApplicationContext(), "존재하지 않는 아이디 입니다.", Toast.LENGTH_SHORT).show();
+            } else if(mServerMsg.equals("nack:pwd")){
+                Toast.makeText(getApplicationContext(), "비밀번호를 정확히 입력하세요.", Toast.LENGTH_SHORT).show();
             } else {
                 SaveSharedPreference.setUserName(LoginActivity.this, mServerMsg); //로그인 인증
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
