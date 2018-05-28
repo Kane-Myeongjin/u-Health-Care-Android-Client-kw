@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //////////////////// 1차 변수 ////////////////////
     private HRThread hrthread = new HRThread();
     private Thread thread;
-    //private StepThread mStepThread = new StepThread();
-    //private Thread thread_step;
+    private StepThread mStepThread = new StepThread();
+    private Thread thread_step;
     private MediaPlayer mMusicPlayer;
     private CounterService binder;
     private boolean running = false;
@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     curr_cal=0;
                     mHeartRate = 0;
                     HR_list.clear();
-                    txtByte.setText("app:on");
+                    txtByte.setText("training:on");
                     textServer.setText("server:ok");
 
                     //크로노 미터 시작
@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     Toast.makeText(getApplicationContext(),"운동 시작", Toast.LENGTH_SHORT).show();
                     btnServer.setText("Stop");
                     getInformation();
-
+                    //startScanStep();
                     // Intent intent = new Intent(MainActivity.this, MyCounterService.class);
                     //startService(intent);
                     // bindService(intent, connection, BIND_AUTO_CREATE);
@@ -333,8 +333,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     // new Thread(new GetCountThread()).start();
                     thread = new Thread(hrthread);
                     thread.start();
-                    //thread_step = new Thread(mStepThread);
-                    //thread_step.start();
+                    thread_step = new Thread(mStepThread);
+                    thread_step.start();
                 }
                 else {      // 서버전송 종료
                     Toast.makeText(getApplicationContext(),"운동 종료", Toast.LENGTH_SHORT).show();
@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     // unbindService(connection);
                     running = false;
                     thread.interrupt();
-                    //thread_step.interrupt();
+                    thread_step.interrupt();
                 }
 
                 return true;
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     void sendServer() {
         //txtByte.setText("prev info. time["+time+"]sec/"+"HR"+HR_list.toString());
-        txtByte.setText("app:off");
+        txtByte.setText("training:off");
         textServer.setText("server:   ");
     }
     void getInformation() { // 걸음수, 거리, 칼로리 정보
@@ -521,11 +521,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    try {
-                        startScanStep();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    //startScanStep();
                 }
             } catch(Exception e) {
             } finally {
@@ -536,7 +532,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     //step가져옴
-    /*
+
     private class StepThread implements Runnable {
 
         @Override
@@ -550,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
 
                     try {
-                        //startScanStep();
+                        startScanStep();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -567,7 +563,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         }
     }
-    */
+
 
 
     void startScanStep() {
@@ -582,12 +578,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             mSteps = (data[4]&0xFF) << 24 | (data[3] & 0xFF) << 16 | (data[2] & 0xFF) << 8 | (data[1] & 0xFF);
             runOnUiThread(new Runnable() {
                 public void run() {
-                    mTvStep.setText("  "+Integer.toString(mSteps)+"  ");
+                    mTvStep.setText(Integer.toString(mSteps)+"");
                 }
             });
             bluetoothGatt.writeCharacteristic(bchar);
         }
     }
+
 
 
 
@@ -687,6 +684,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Log.v(TAG, "step : "+new_step);
                 Log.v(TAG, "distance : "+new_distance+"m");
                 Log.v(TAG, "cal : "+new_cal);
+                //mTvStep.setText(new_step);
+                mTvStep.setText(Integer.toString(new_step));
             }
 
 
