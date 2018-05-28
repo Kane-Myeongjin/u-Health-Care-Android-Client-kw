@@ -5,7 +5,8 @@
     android:paddingTop="90sp"
     android:paddingLeft="20sp"
     android:paddingRight="20sp"
-    android:paddingBottom="30sp">
+    android:paddingBottom="30sp"
+    android:background="@drawable/back">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="u-Health-Care-System"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#c8ff5e00"/>
     </RelativeLayout>
 
     <LinearLayout

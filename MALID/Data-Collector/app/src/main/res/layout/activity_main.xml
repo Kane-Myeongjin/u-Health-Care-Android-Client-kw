@@ -139,9 +139,9 @@
             android:id="@+id/textState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 000 BPM "
+            android:text="   000 BPM   "
             android:textColor="#3aa929"
-            android:textSize="70sp"
+            android:textSize="65sp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
@@ -166,8 +166,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Prediction"
-            android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textSize="20sp"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/textStan"
@@ -175,7 +175,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:autoText="true"
-            android:textSize="25sp" />
+            android:textSize="20sp"
+            android:textColor="#0000ff"/>
     </LinearLayout>
 
 
@@ -194,18 +195,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Selected           "
+            android:text="Selected            "
             android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textCurr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autoText="true"
             android:text="[  0  ]"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 
@@ -224,7 +224,7 @@
             android:layout_weight="1"
             android:text="Step           "
             android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textStep"
@@ -232,8 +232,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:autoText="true"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </LinearLayout>
+
+
 
 
 
@@ -252,13 +254,13 @@
             android:layout_weight="1.5"
             android:text="Time    "
             android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
         <Chronometer
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 

@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //////////////////// 1차 변수 ////////////////////
     private HRThread hrthread = new HRThread();
     private Thread thread;
+    private StepThread mStepThread = new StepThread();
+    private Thread thread_step;
     private MediaPlayer mMusicPlayer;
     private CounterService binder;
     private boolean running = false;
@@ -118,8 +120,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     int predict = -1;
     int tmp_predict = -1;
 
+    private int mSteps=0;
+
     //sys
     private boolean mConnDevice;
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
     //////////////////// 2차 변수 ////////////////////
 
 
@@ -166,9 +172,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         initializeEvents();
 
         getBoundedDevice();
+
+        mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        mSensor =mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //mTvStep.setText(Integer.toString(new_step));
+        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+            // 방향센서값이 변경된거라면
+            String sensorMsg = event.values[0]+"";
+            //mTvStep.setText(sensorMsg);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 
     // 액션바 뒤로가기 버튼
     @Override
@@ -299,6 +333,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     // new Thread(new GetCountThread()).start();
                     thread = new Thread(hrthread);
                     thread.start();
+                    thread_step = new Thread(mStepThread);
+                    thread_step.start();
                 }
                 else {      // 서버전송 종료
                     Toast.makeText(getApplicationContext(),"운동 종료", Toast.LENGTH_SHORT).show();
@@ -310,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     // unbindService(connection);
                     running = false;
                     thread.interrupt();
+                    thread_step.interrupt();
                 }
 
                 return true;
@@ -401,17 +438,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         if (predict != -1) {
 
                             mTvStanHR.setText("[  " + (predict) + "  ]");
-
+                            //mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             if (predict > mDegree){
                                 mMusicPlayer.pause();
-                                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             }
                             else if (predict < mDegree) {
                                 mMusicPlayer.pause();
-                                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             } else{
                                 mMusicPlayer.pause();
-                                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
                             }
                         }
 
@@ -443,19 +477,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         @Override
         protected void onProgressUpdate(String... params) {
             //total 상태창 업데이트
-            mTvTotalState.setText(Integer.toString(mHeartRate)+" BPM");
-            if(mDegree<predict){ //설정값<예측값
-                mTvTotalState.setTextColor(Color.parseColor("#FF0000")); //R
-                //mProgState.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-            } else {
-                mTvTotalState.setTextColor(Color.parseColor("#00FF00")); //G
-                //mProgState.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
-            }
+            mTvTotalState.setText(" "+Integer.toString(mHeartRate)+" BPM ");
 
             if(time!=0 && time%5==0) {
                 HR_list.add(mHeartRate);
             }
             mProgState.setProgress(mHeartRate);
+            //mTvStep.setText(Integer.toString(curr_step));
+            //BluetoothGattCallback.onCharacteristicRead();
         }
 
         @Override
@@ -501,6 +530,59 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    //step가져옴
+    private class StepThread implements Runnable {
+
+        @Override
+        public void run() {
+            try{
+                while(running){
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        startScanStep();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(15000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch(Exception e) {
+            } finally {
+                Log.v(TAG, "STEP-Thread is dead");
+            }
+
+        }
+    }
+
+
+    void startScanStep() {
+        BluetoothGattCharacteristic bchar = bluetoothGatt
+                .getService(CustomBluetoothProfile.Information.service)
+                .getCharacteristic(CustomBluetoothProfile.Information.Characteristic);
+
+        if (!bluetoothGatt.readCharacteristic(bchar)) {
+            return;
+        } else {
+            byte[] data = bchar.getValue();
+            mSteps = (data[4]&0xFF) << 24 | (data[3] & 0xFF) << 16 | (data[2] & 0xFF) << 8 | (data[1] & 0xFF);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    mTvStep.setText("  "+Integer.toString(mSteps)+"  ");
+                }
+            });
+            bluetoothGatt.writeCharacteristic(bchar);
+        }
+    }
+
+
 
 
     // 미 밴드 연결
@@ -529,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         bluetoothGatt.disconnect();
         txtState.setText("Disconnected");
     }
-
+        //testest
     void startScanHeartRate() {
         BluetoothGattCharacteristic bchar = bluetoothGatt.getService(CustomBluetoothProfile.HeartRate.service)
                 .getCharacteristic(CustomBluetoothProfile.HeartRate.controlCharacteristic);
@@ -569,7 +651,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.v(TAG, "onServicesDiscovered");
             listenHeartRate();
         }
-
+        //testestest
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicRead(gatt, characteristic, status);
@@ -598,9 +680,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Log.v(TAG, "step : "+new_step);
                 Log.v(TAG, "distance : "+new_distance+"m");
                 Log.v(TAG, "cal : "+new_cal);
-
-
-                mTvStep.setText(Integer.toString(new_step));
             }
 
 
@@ -740,7 +819,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     mMusicPlayer.setPlaybackParams(mMusicPlayer.getPlaybackParams().setSpeed((float)0.6));
                 }
-                mTvStanHR.setTextColor(Color.parseColor("#FF0000")); //R
+                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
             }
             else if (predict < mDegree) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -752,24 +831,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     mMusicPlayer.setPlaybackParams(mMusicPlayer.getPlaybackParams().setSpeed((float)1.0));
                 }
-                mTvStanHR.setTextColor(Color.parseColor("#00FF00")); //G
+                mTvStanHR.setTextColor(Color.parseColor("#0000FF")); //B
             }
 
         } else { //MUSIC OFF
             mMusicPlayer.pause();
         }
     }
-
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        //mTvStep.setText(Integer.toString(new_step));
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
 
 }

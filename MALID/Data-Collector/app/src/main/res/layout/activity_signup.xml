@@ -7,19 +7,24 @@
     android:paddingLeft="10sp"
     android:paddingRight="10sp"
     android:paddingTop="10sp"
-    android:paddingBottom="5sp">
+    android:paddingBottom="5sp"
+    android:background="@drawable/back">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
+
         <TextView
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:text="u-Health-Care-System"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:textColor="#ff7300"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 
@@ -31,9 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="회원가입"
+            android:text="Join Us !"
             android:textSize="40sp"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:textStyle="bold|italic"/>
     </RelativeLayout>
 
 
@@ -54,7 +60,8 @@
             android:layout_weight="1"
             android:text="아이디*"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
 
         <EditText
             android:id="@+id/editSignupID"
@@ -84,7 +91,8 @@
             android:layout_weight="1"
             android:text="비밀번호*"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
 
         <EditText
             android:id="@+id/editSignupPWD"
@@ -114,7 +122,8 @@
             android:layout_weight="1"
             android:text="확인*"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
 
         <EditText
             android:id="@+id/editSignupPWD2"
@@ -144,7 +153,8 @@
             android:layout_weight="1"
             android:text="이름*"
             android:textColor="#000000"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
         <EditText
             android:id="@+id/editSignupName"
             android:layout_width="wrap_content"
@@ -172,7 +182,8 @@
             android:layout_weight="1"
             android:text="나이"
             android:textColor="#000000"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
         <EditText
             android:id="@+id/editSignupAge"
             android:layout_width="wrap_content"
@@ -190,13 +201,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1">
+
         <TextView
             android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="성별"
             android:textColor="#000000"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
         <RadioGroup
             android:id="@+id/groupSex"
             android:layout_width="wrap_content"
@@ -236,7 +249,8 @@
             android:layout_weight="1"
             android:text="키"
             android:textColor="#000000"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
         <EditText
             android:id="@+id/editSignupStature"
             android:layout_width="wrap_content"
@@ -261,7 +275,8 @@
             android:layout_weight="1"
             android:text="몸무게"
             android:textColor="#000000"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold|italic"/>
         <EditText
             android:id="@+id/editSignupWeight"
             android:layout_width="wrap_content"
