@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //////////////////// 1차 변수 ////////////////////
     private HRThread hrthread = new HRThread();
     private Thread thread;
-    private StepThread mStepThread = new StepThread();
-    private Thread thread_step;
+    //private StepThread mStepThread = new StepThread();
+    //private Thread thread_step;
     private MediaPlayer mMusicPlayer;
     private CounterService binder;
     private boolean running = false;
@@ -333,8 +333,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     // new Thread(new GetCountThread()).start();
                     thread = new Thread(hrthread);
                     thread.start();
-                    thread_step = new Thread(mStepThread);
-                    thread_step.start();
+                    //thread_step = new Thread(mStepThread);
+                    //thread_step.start();
                 }
                 else {      // 서버전송 종료
                     Toast.makeText(getApplicationContext(),"운동 종료", Toast.LENGTH_SHORT).show();
@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     // unbindService(connection);
                     running = false;
                     thread.interrupt();
-                    thread_step.interrupt();
+                    //thread_step.interrupt();
                 }
 
                 return true;
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         BluetoothGattCharacteristic bchar = bluetoothGatt.getService(CustomBluetoothProfile.Information.service)
                 .getCharacteristic(CustomBluetoothProfile.Information.Characteristic);
         if (!bluetoothGatt.readCharacteristic(bchar)) {
-            Toast.makeText(this, "Failed get information info", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Failed get information info", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -521,6 +521,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        startScanStep();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch(Exception e) {
             } finally {
@@ -531,6 +536,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     //step가져옴
+    /*
     private class StepThread implements Runnable {
 
         @Override
@@ -544,7 +550,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
 
                     try {
-                        startScanStep();
+                        //startScanStep();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -561,6 +567,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         }
     }
+    */
 
 
     void startScanStep() {
