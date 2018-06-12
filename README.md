@@ -9,12 +9,15 @@
 -웨어러블 디바이스를 통한 딥러닝 생체 리듬 분석
  
 
-지도 교수 :   컴퓨터공학부  이혁준 교수
+지도 교수 : 
+컴퓨터공학부  이혁준 교수
+
+
 팀     원 :	
-      컴퓨터공학부  이명진 lmjin4050@naver.com
-			컴퓨터공학부  김기선 rionkingk1@naver.com
-			컴퓨터공학부  김지웅 hosin2004@naver.com
-			컴퓨터공학부  이호영 ghdud4006@gmail.com
+컴퓨터공학부  이명진 lmjin4050@naver.com		
+컴퓨터공학부  김기선 rionkingk1@naver.com
+컴퓨터공학부  김지웅 hosin2004@naver.com
+컴퓨터공학부  이호영 ghdud4006@gmail.com
       
       
       
