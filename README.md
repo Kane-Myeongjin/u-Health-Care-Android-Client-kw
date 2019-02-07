@@ -1,8 +1,6 @@
 # u-Health-Care-System
 # u-Health-Care_client_comteam
 
-광운대학교 제 2회 산학협력 S/W 개발
-
 <COMTEAM 결과물>
 
 
@@ -10,9 +8,7 @@
  
 참여 기업 : 아이센스
 
-지도 교수 : 
-
-컴퓨터공학부  이혁준 교수
+지도 교수 : 컴퓨터공학부  이혁준 교수
 
 
 팀     원 :	
