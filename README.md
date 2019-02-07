@@ -1,8 +1,6 @@
 # u-Health-Care-System
 # u-Health-Care_client_comteam
 
-<COMTEAM 결과물>
-
 
 프로젝트 명 : 인공지능 U-Health-Care System -웨어러블 디바이스를 통한 딥러닝 생체 리듬 분석
  
