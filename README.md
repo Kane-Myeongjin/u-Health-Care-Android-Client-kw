@@ -2,11 +2,7 @@
 # u-Health-Care_client_comteam
 
 
-프로젝트 명 : 인공지능 U-Health-Care System -웨어러블 디바이스를 통한 딥러닝 생체 리듬 분석
- 
 참여 기업 : 아이센스
-
-지도 교수 : 컴퓨터공학부  이혁준 교수
 
 
 팀     원 :	
@@ -19,10 +15,6 @@
 
 컴퓨터공학부  이호영 ghdud4006@gmail.com
       
-      
-      
-      
-사용 영상 : https://www.youtube.com/watch?v=Xk8d8NQWQCY
 
 
 ===============================================
