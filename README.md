@@ -1,22 +1,6 @@
 # u-Health-Care-System
 # u-Health-Care_client_comteam
 
-
-참여 기업 : 아이센스
-
-
-팀     원 :	
-
-컴퓨터공학부  이명진 lmjin4050@naver.com		
-
-컴퓨터공학부  김기선 rionkingk1@naver.com
-
-컴퓨터공학부  김지웅 hosin2004@naver.com
-
-컴퓨터공학부  이호영 ghdud4006@gmail.com
-      
-
-
 ===============================================
 
 사용 환경
